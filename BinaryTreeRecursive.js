@@ -47,7 +47,53 @@ const treeIncludes = (root, target) => {
 
 const treeSumRecursion = (root) => {
   if (root == null) return 0;
-  return root.value + sumOfNodeValues(root.left) + sumOfNodeValues(root.right);
+  return (
+    root.value + treeSumRecursion(root.left) + treeSumRecursion(root.right)
+  );
+};
+
+/*
+  find min value in a tree using depth first search
+  time = O(n)
+  space = O(n)
+*/
+const treeMinimumValue = (root) => {
+  let smallest = root.value;
+  const stack = [root];
+
+  while (stack.length > 0) {
+    current = stack.pop();
+    if (current.value < smallest) {
+      smallest = current.value;
+    }
+
+    if (current.right != null) stack.push(current.right);
+    if (current.left != null) stack.push(current.left);
+  }
+
+  return smallest;
+};
+
+/*
+  find min value in a tree using breadth first search
+  time = O(n)
+  space = O(n)
+*/
+const treeMinimumValueBFS = (root) => {
+  let smallest = root.value;
+  const queue = [root];
+
+  while (queue.length > 0) {
+    current = queue.shift();
+    if (current.value < smallest) {
+      smallest = current.value;
+    }
+
+    if (current.right != null) queue.push(current.right);
+    if (current.left != null) queue.push(current.left);
+  }
+
+  return smallest;
 };
 
 // const a = new Node("1");
@@ -62,12 +108,12 @@ const treeSumRecursion = (root) => {
 // const j = new Node("10");
 // const k = new Node("11");
 
-const a = new Node(1);
+const a = new Node(5);
 const b = new Node(2);
 const c = new Node(3);
 const d = new Node(4);
 const e = new Node(5);
-const f = new Node(6);
+const f = new Node(-1);
 const g = new Node(7);
 const h = new Node(8);
 const i = new Node(9);
@@ -86,6 +132,8 @@ h.right = k;
 i.right = j;
 
 console.log(treeSumRecursion(a));
+console.log(treeMinimumValue(a));
+console.log(treeMinimumValueBFS(a));
 
 console.log("***Pre Order Traversal***");
 const preOrderTraversalValues = preOrderTraversal(a);
