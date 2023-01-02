@@ -119,6 +119,28 @@ const treeMinimumValueBFS = (root) => {
   return smallest;
 };
 
+const treeRootToLeafPaths = (root) => {
+  if (root.left == null && root.right == null) return 1;
+  if (root.left == null && root.right != null) return 0;
+  if (root.left != null && root.right == null) return 0;
+
+  const leftLeafNodes = treeRootToLeafPaths(root.left);
+  const rightLeafNodes = treeRootToLeafPaths(root.right);
+
+  return leftLeafNodes + rightLeafNodes;
+};
+
+const treeMaxRootToLeafPathSum = (root) => {
+  if (root == null) return -Infinity;
+  if (root.left == null && root.right == null) return root.value;
+
+  const leftPathSum = root.value + treeMaxRootToLeafPathSum(root.left);
+  const rightPathSum = root.value + treeMaxRootToLeafPathSum(root.right);
+
+  if (leftPathSum > rightPathSum) return leftPathSum;
+  else return rightPathSum;
+};
+
 // const a = new Node("1");
 // const b = new Node("2");
 // const c = new Node("3");
@@ -131,34 +153,53 @@ const treeMinimumValueBFS = (root) => {
 // const j = new Node("10");
 // const k = new Node("11");
 
-const a = new Node(5);
-const b = new Node(2);
-const c = new Node(3);
-const d = new Node(4);
-const e = new Node(5);
-const f = new Node(-1);
-const g = new Node(7);
-const h = new Node(-4);
-const i = new Node(9);
-const j = new Node(10);
-const k = new Node(11);
+// const a = new Node(5);
+// const b = new Node(2);
+// const c = new Node(3);
+// const d = new Node(4);
+// const e = new Node(5);
+// const f = new Node(-1);
+// const g = new Node(7);
+// const h = new Node(-4);
+// const i = new Node(9);
+// const j = new Node(10);
+// const k = new Node(11);
+
+// a.left = b;
+// a.right = h;
+// b.left = c;
+// b.right = f;
+// c.left = d;
+// c.right = e;
+// f.left = g;
+// h.left = i;
+// h.right = k;
+// i.right = j;
+
+const a = new Node(-1);
+const b = new Node(-6);
+const c = new Node(-5);
+const d = new Node(-3);
+const e = new Node(0);
+const f = new Node(-13);
+const g = new Node(-1);
+const h = new Node(-2);
 
 a.left = b;
-a.right = h;
-b.left = c;
-b.right = f;
-c.left = d;
-c.right = e;
-f.left = g;
-h.left = i;
-h.right = k;
-i.right = j;
+a.right = c;
+b.left = d;
+b.right = e;
+c.right = f;
+e.left = g;
+f.right = h;
 
 treeIncludes(a, c.value);
 console.log(treeSumRecursion(a));
 console.log(treeMinimumValue(a));
 console.log(treeMinimumValueBFS(a));
 console.log(treeMinimumValueRecursion(a));
+console.log(treeRootToLeafPaths(a));
+console.log(treeMaxRootToLeafPathSum(a));
 
 // console.log("***Pre Order Traversal***");
 // const preOrderTraversalValues = preOrderTraversal(a);
