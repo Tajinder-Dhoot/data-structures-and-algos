@@ -75,6 +75,29 @@ const treeMinimumValue = (root) => {
 };
 
 /*
+  find min value in a tree using depth first search with recursion
+  time = O(n)
+  space = O(n)
+*/
+const treeMinimumValueRecursion = (root) => {
+  if (root == null) return Infinity;
+
+  let leftMin = treeMinimumValueRecursion(root.left);
+  let rightMin = treeMinimumValueRecursion(root.right);
+
+  let smallest = root.value;
+  if (leftMin < smallest) {
+    smallest = leftMin;
+  }
+
+  if (rightMin < smallest) {
+    smallest = rightMin;
+  }
+
+  return smallest;
+};
+
+/*
   find min value in a tree using breadth first search
   time = O(n)
   space = O(n)
@@ -115,7 +138,7 @@ const d = new Node(4);
 const e = new Node(5);
 const f = new Node(-1);
 const g = new Node(7);
-const h = new Node(8);
+const h = new Node(-4);
 const i = new Node(9);
 const j = new Node(10);
 const k = new Node(11);
@@ -131,32 +154,32 @@ h.left = i;
 h.right = k;
 i.right = j;
 
+treeIncludes(a, c.value);
 console.log(treeSumRecursion(a));
 console.log(treeMinimumValue(a));
 console.log(treeMinimumValueBFS(a));
+console.log(treeMinimumValueRecursion(a));
 
-console.log("***Pre Order Traversal***");
-const preOrderTraversalValues = preOrderTraversal(a);
-let index = 0;
-while (index < preOrderTraversalValues.length) {
-  console.log(preOrderTraversalValues[index].value);
-  index++;
-}
+// console.log("***Pre Order Traversal***");
+// const preOrderTraversalValues = preOrderTraversal(a);
+// let index = 0;
+// while (index < preOrderTraversalValues.length) {
+//   console.log(preOrderTraversalValues[index].value);
+//   index++;
+// }
 
-console.log("***In Order Traversal***");
-const inOrderTraversalValues = inOrderTraversal(a);
-index = 0;
-while (index < inOrderTraversalValues.length) {
-  console.log(inOrderTraversalValues[index].value);
-  index++;
-}
+// console.log("***In Order Traversal***");
+// const inOrderTraversalValues = inOrderTraversal(a);
+// index = 0;
+// while (index < inOrderTraversalValues.length) {
+//   console.log(inOrderTraversalValues[index].value);
+//   index++;
+// }
 
-console.log("***Post Order Traversal***");
-const postOrderTraversalValues = postOrderTraversal(a);
-index = 0;
-while (index < postOrderTraversalValues.length) {
-  console.log(postOrderTraversalValues[index].value);
-  index++;
-}
-
-treeIncludes(a, c.value);
+// console.log("***Post Order Traversal***");
+// const postOrderTraversalValues = postOrderTraversal(a);
+// index = 0;
+// while (index < postOrderTraversalValues.length) {
+//   console.log(postOrderTraversalValues[index].value);
+//   index++;
+// }
